@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV VAULT - Learn The Real Secrets of Coding</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo-section">
+                    <img src="Image/dev-vault.jpeg" alt="DEV VAULT Logo" class="logo">
+                    <span class="brand-name">DEV VAULT</span>
+                </div>
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#video">Video</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#apply">Apply Now</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Learn The Real Secrets of Coding</h1>
+                <p class="hero-subtitle">Master Frontend & Backend Development with Industry Experts</p>
+                <div class="hero-buttons">
+                    <a href="#courses" class="btn btn-primary">View Courses</a>
+                    <a href="#apply" class="btn btn-secondary">Get Started</a>
+                </div>
+            </div>
+            <div class="hero-animation">
+                <div class="code-block">
+                    <span>&lt;code&gt;</span>
+                    <span>Learn. Build. Master.</span>
+                    <span>&lt;/code&gt;</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About Dev Vault</h2>
+                <p>Unlocking the Secrets Behind Successful Code</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Who We Are</h3>
+                    <p>DEV VAULT is a premier online learning platform dedicated to teaching the real secrets of coding. We believe that coding isn't just about syntax—it's about understanding the principles, best practices, and industry standards that separate good developers from great ones.</p>
+                    
+                    <div class="features-list">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Expert-led courses designed by industry professionals</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Hands-on projects and real-world applications</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Comprehensive curriculum covering latest technologies</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>24/7 access to learning materials and community support</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Career guidance and industry insights</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <h4>500+</h4>
+                        <p>Students Enrolled</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>25+</h4>
+                        <p>Courses Available</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>100%</h4>
+                        <p>Success Rate</p>
+                    </div>
+                    <div class="stat-card">
+                        <h4>50+</h4>
+                        <p>Industry Partners</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section id="video" class="video-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>See What We Teach</h2>
+                <p>Get an inside look at our teaching methodology and sample content</p>
+            </div>
+            
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <div class="video-overlay" id="videoOverlay">
+                        <button class="play-button-large" id="playVideoBtn">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <video id="devVaultVideo" controls controlsList="nodownload" poster="Image/dev-vault.jpeg" loading="lazy">
+                        <source src="dev-vault.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>Our Teaching Philosophy</h3>
+                    <p>At DEV VAULT, we don't just teach you to code—we teach you to think like a developer. Watch this video to understand our unique approach to teaching the real secrets of coding.</p>
+                    
+                    <div class="video-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h4>Expert Instruction</h4>
+                                <p>Learn from professionals with 10+ years of industry experience</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-project-diagram"></i>
+                            <div>
+                                <h4>Real Projects</h4>
+                                <p>Build portfolio-worthy projects from day one</p>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Community Support</h4>
+                                <p>Join a thriving community of developers and get instant help</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Courses</h2>
+                <p>Choose Your Learning Path</p>
+            </div>
+
+            <!-- Frontend Courses -->
+            <div class="course-category">
+                <h3 class="category-title">
+                    <i class="fas fa-paint-brush"></i> Frontend Development
+                </h3>
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fab fa-html5"></i>
+                        </div>
+                        <h4>HTML & CSS Mastery</h4>
+                        <p>Build responsive websites with semantic HTML5 and advanced CSS3 techniques. Learn flexbox, grid, and modern CSS animations.</p>
+                        <ul class="course-topics">
+                            <li>Semantic HTML5</li>
+                            <li>Advanced CSS3</li>
+                            <li>Flexbox & Grid</li>
+                            <li>Responsive Design</li>
+                            <li>Web Accessibility</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fab fa-js-square"></i>
+                        </div>
+                        <h4>JavaScript Fundamentals</h4>
+                        <p>Master the language of the web. From basics to advanced concepts like closures, async/await, and DOM manipulation.</p>
+                        <ul class="course-topics">
+                            <li>Core Concepts</li>
+                            <li>ES6+ Features</li>
+                            <li>DOM Manipulation</li>
+                            <li>Async Programming</li>
+                            <li>Error Handling</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fab fa-react"></i>
+                        </div>
+                        <h4>React & Modern Frameworks</h4>
+                        <p>Build dynamic, component-based user interfaces. Learn React hooks, state management, and best practices for production apps.</p>
+                        <ul class="course-topics">
+                            <li>React Fundamentals</li>
+                            <li>Hooks & Context API</li>
+                            <li>State Management</li>
+                            <li>Performance Optimization</li>
+                            <li>Production Deployment</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <h4>UI/UX Design Principles</h4>
+                        <p>Create beautiful, intuitive interfaces. Learn design principles, user psychology, and tools like Figma.</p>
+                        <ul class="course-topics">
+                            <li>Design Principles</li>
+                            <li>User Psychology</li>
+                            <li>Figma & Tools</li>
+                            <li>Prototyping</li>
+                            <li>Conversion Optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fab fa-sass"></i>
+                        </div>
+                        <h4>Advanced Styling & Animations</h4>
+                        <p>Create stunning visual experiences with SASS, animations, and interactive effects that engage users.</p>
+                        <ul class="course-topics">
+                            <li>SASS/SCSS</li>
+                            <li>CSS Animations</li>
+                            <li>Transitions</li>
+                            <li>Interactive Effects</li>
+                            <li>Performance Tuning</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4>Responsive Web Development</h4>
+                        <p>Master mobile-first design and create applications that work flawlessly on all devices.</p>
+                        <ul class="course-topics">
+                            <li>Mobile-First Design</li>
+                            <li>Media Queries</li>
+                            <li>Touch Events</li>
+                            <li>Progressive Enhancement</li>
+                            <li>Testing & Debugging</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Backend Courses -->
+            <div class="course-category">
+                <h3 class="category-title">
+                    <i class="fas fa-server"></i> Backend Development
+                </h3>
+                <div class="courses-grid">
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fab fa-node-js"></i>
+                        </div>
+                        <h4>Node.js & Express</h4>
+                        <p>Build scalable server-side applications. Learn Node.js runtime, Express framework, and RESTful API design.</p>
+                        <ul class="course-topics">
+                            <li>Node.js Basics</li>
+                            <li>Express Framework</li>
+                            <li>RESTful APIs</li>
+                            <li>Middleware</li>
+                            <li>Error Handling</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h4>Database Design & SQL</h4>
+                        <p>Master relational databases and SQL. Learn database design, optimization, and best practices.</p>
+                        <ul class="course-topics">
+                            <li>SQL Fundamentals</li>
+                            <li>Database Design</li>
+                            <li>Normalization</li>
+                            <li>Query Optimization</li>
+                            <li>Transactions & Locks</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>MongoDB & NoSQL</h4>
+                        <p>Work with modern NoSQL databases. Learn MongoDB, data modeling for document databases, and scaling strategies.</p>
+                        <ul class="course-topics">
+                            <li>NoSQL Concepts</li>
+                            <li>MongoDB Basics</li>
+                            <li>Document Design</li>
+                            <li>Aggregation</li>
+                            <li>Indexing & Performance</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h4>Cloud Deployment & DevOps</h4>
+                        <p>Deploy applications to the cloud. Learn Docker, Kubernetes, CI/CD pipelines, and cloud platforms.</p>
+                        <ul class="course-topics">
+                            <li>Docker Containerization</li>
+                            <li>Kubernetes Orchestration</li>
+                            <li>CI/CD Pipelines</li>
+                            <li>AWS / Azure</li>
+                            <li>Monitoring & Logging</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h4>Security & Authentication</h4>
+                        <p>Build secure applications. Learn authentication, encryption, and security best practices.</p>
+                        <ul class="course-topics">
+                            <li>JWT & OAuth</li>
+                            <li>Encryption</li>
+                            <li>SQL Injection Prevention</li>
+                            <li>CORS & Security Headers</li>
+                            <li>Penetration Testing</li>
+                        </ul>
+                    </div>
+
+                    <div class="course-card">
+                        <div class="course-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h4>API Development & Integration</h4>
+                        <p>Create robust APIs and integrate third-party services. Learn GraphQL, WebSockets, and API best practices.</p>
+                        <ul class="course-topics">
+                            <li>RESTful Principles</li>
+                            <li>GraphQL</li>
+                            <li>WebSockets</li>
+                            <li>API Documentation</li>
+                            <li>Version Management</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pricing Plans</h2>
+                <p>Affordable Learning for Everyone</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Frontend -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Frontend Development</h3>
+                        <p class="pricing-description">Master UI/UX and client-side development</p>
+                    </div>
+
+                    <div class="pricing-options">
+                        <div class="price-option">
+                            <div class="option-flag">🌍</div>
+                            <div class="option-title">International</div>
+                            <div class="price-amount">
+                                <span class="currency">$</span>
+                                <span class="amount">50</span>
+                            </div>
+                            <p class="price-period">One-time access</p>
+                        </div>
+
+                        <div class="price-option">
+                            <div class="option-flag">🇳🇬</div>
+                            <div class="option-title">Nigeria</div>
+                            <div class="price-amount">
+                                <span class="currency">₦</span>
+                                <span class="amount">70k</span>
+                            </div>
+                            <p class="price-period">One-time access</p>
+                        </div>
+                    </div>
+
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> All Frontend Courses</li>
+                        <li><i class="fas fa-check"></i> 40+ Video Lectures</li>
+                        <li><i class="fas fa-check"></i> 20+ Hands-on Projects</li>
+                        <li><i class="fas fa-check"></i> Lifetime Access</li>
+                        <li><i class="fas fa-check"></i> Certificates</li>
+                        <li><i class="fas fa-check"></i> Community Support</li>
+                    </ul>
+
+                    <button class="btn btn-primary pricing-btn" onclick="scrollToApply()">Enroll Now</button>
+                </div>
+
+                <!-- Backend -->
+                <div class="pricing-card featured">
+                    <div class="featured-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Backend Development</h3>
+                        <p class="pricing-description">Master server-side & database development</p>
+                    </div>
+
+                    <div class="pricing-options">
+                        <div class="price-option">
+                            <div class="option-flag">🌍</div>
+                            <div class="option-title">International</div>
+                            <div class="price-amount">
+                                <span class="currency">$</span>
+                                <span class="amount">100</span>
+                            </div>
+                            <p class="price-period">One-time access</p>
+                        </div>
+
+                        <div class="price-option">
+                            <div class="option-flag">🇳🇬</div>
+                            <div class="option-title">Nigeria</div>
+                            <div class="price-amount">
+                                <span class="currency">₦</span>
+                                <span class="amount">130k</span>
+                            </div>
+                            <p class="price-period">One-time access</p>
+                        </div>
+                    </div>
+
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> All Backend Courses</li>
+                        <li><i class="fas fa-check"></i> 50+ Video Lectures</li>
+                        <li><i class="fas fa-check"></i> 30+ Projects & Challenges</li>
+                        <li><i class="fas fa-check"></i> Lifetime Access</li>
+                        <li><i class="fas fa-check"></i> Professional Certificates</li>
+                        <li><i class="fas fa-check"></i> 1-on-1 Mentorship</li>
+                    </ul>
+
+                    <button class="btn btn-primary pricing-btn" onclick="scrollToApply()">Enroll Now</button>
+                </div>
+
+                <!-- Both -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Full Stack Master</h3>
+                        <p class="pricing-description">Both Frontend & Backend courses</p>
+                    </div>
+
+                    <div class="pricing-options">
+                        <div class="price-option">
+                            <div class="option-flag">🌍</div>
+                            <div class="option-title">International</div>
+                            <div class="price-amount">
+                                <span class="currency">$</span>
+                                <span class="amount">140</span>
+                            </div>
+                            <p class="price-period">One-time access (Save $10)</p>
+                        </div>
+
+                        <div class="price-option">
+                            <div class="option-flag">🇳🇬</div>
+                            <div class="option-title">Nigeria</div>
+                            <div class="price-amount">
+                                <span class="currency">₦</span>
+                                <span class="amount">190k</span>
+                            </div>
+                            <p class="price-period">One-time access (Save 10k)</p>
+                        </div>
+                    </div>
+
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> All Frontend Courses</li>
+                        <li><i class="fas fa-check"></i> All Backend Courses</li>
+                        <li><i class="fas fa-check"></i> 90+ Video Lectures</li>
+                        <li><i class="fas fa-check"></i> 50+ Projects</li>
+                        <li><i class="fas fa-check"></i> Lifetime Access</li>
+                        <li><i class="fas fa-check"></i> Premium Support</li>
+                    </ul>
+
+                    <button class="btn btn-primary pricing-btn" onclick="scrollToApply()">Enroll Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section id="apply" class="apply">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ready to Master Coding?</h2>
+                <p>Fill out the form below and we'll contact you via WhatsApp</p>
+            </div>
+
+            <div class="form-wrapper">
+                <form id="applicationForm" class="application-form">
+                    <div class="form-group">
+                        <label for="fullName">Full Name *</label>
+                        <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required placeholder="your@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">WhatsApp Number *</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+234 (Country code required)">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required>
+                                <option value="">Select your country</option>
+                                <option value="Nigeria">Nigeria</option>
+                                <option value="United States">United States</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Canada">Canada</option>
+                                <option value="Australia">Australia</option>
+                                <option value="Ghana">Ghana</option>
+                                <option value="Kenya">Kenya</option>
+                                <option value="South Africa">South Africa</option>
+                                <option value="Germany">Germany</option>
+                                <option value="France">France</option>
+                                <option value="India">India</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Experience Level *</label>
+                            <select id="experience" name="experience" required>
+                                <option value="">Select your level</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="interests">Which courses interest you? *</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="HTML & CSS">
+                                <span>HTML & CSS Mastery</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="JavaScript">
+                                <span>JavaScript Fundamentals</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="React">
+                                <span>React & Modern Frameworks</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Node.js">
+                                <span>Node.js & Express</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Databases">
+                                <span>Database Design & SQL</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="DevOps">
+                                <span>Cloud & DevOps</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Tell us about your goals (Optional)</label>
+                        <textarea id="message" name="message" rows="5" placeholder="What do you want to achieve?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="checkbox-label checkbox-large">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <span>I agree to receive updates and information from DEV VAULT</span>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">Send via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Connect with us on social media</p>
+            </div>
+
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>09065829287</p>
+                    <a href="https://wa.me/2349065829287" target="_blank" class="btn btn-outline">Message on WhatsApp</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-tiktok"></i>
+                    </div>
+                    <h3>TikTok</h3>
+                    <p>@dev_vault</p>
+                    <a href="https://www.tiktok.com/@dev_vault?_r=1&_t=ZS-95CUenk8UGy" target="_blank" class="btn btn-outline">Follow Us</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <h3>Twitter (X)</h3>
+                    <p>Coming Soon</p>
+                    <button class="btn btn-outline" disabled>Twitter Link (Coming Soon)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DEV VAULT</h4>
+                    <p>Unlocking the real secrets of coding through quality education and expert mentorship.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#apply">Apply Now</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://wa.me/2349065829287" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.tiktok.com/@dev_vault?_r=1&_t=ZS-95CUenk8UGy" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="#" target="_blank" title="Twitter" id="twitterLink" style="display:none;"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DEV VAULT. All rights reserved. | We teach the real secrets of coding.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner" style="display:none;">
+        <div class="spinner"></div>
+        <p>Preparing your application...</p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
