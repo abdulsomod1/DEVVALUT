@@ -29,7 +29,9 @@
                     <li><a href="#courses">Courses</a></li>
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#apply">Apply Now</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" id="adminLoginBtn" style="color: #ff6b35; font-weight: bold;">🔐 Admin</a></li>
+
                 </ul>
             </div>
         </div>
@@ -647,6 +649,33 @@
                     <p>Follow us for updates and tips</p>
                     <a href="https://x.com/marufat88235" target="_blank" class="btn btn-outline">Follow on Twitter</a>
                 </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <h3>Facebook</h3>
+                    <p>Connect with our community</p>
+                    <a href="https://web.facebook.com/profile.php?id=61572118732511" target="_blank" class="btn btn-outline">Visit Facebook</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <h3>Instagram</h3>
+                    <p>@dev.vault.coding.school</p>
+                    <a href="https://www.instagram.com/dev.vault.coding.school/" target="_blank" class="btn btn-outline">Follow on Instagram</a>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                    <h3>YouTube</h3>
+                    <p>Watch coding tutorials</p>
+                    <a href="https://www.youtube.com/feed/you" target="_blank" class="btn btn-outline">Subscribe on YouTube</a>
+                </div>
             </div>
         </div>
     </section>
@@ -674,6 +703,9 @@
                         <a href="https://wa.me/2349065829287" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="https://www.tiktok.com/@dev_vault?_r=1&_t=ZS-95CUenk8UGy" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
                         <a href="https://x.com/marufat88235" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://web.facebook.com/profile.php?id=61572118732511" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/dev.vault.coding.school/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/feed/you" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
@@ -683,12 +715,49 @@
         </div>
     </footer>
 
+    <!-- Admin Login Modal -->
+    <div id="adminModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Admin Login</h2>
+            <form id="adminForm">
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPass">Password</label>
+                    <input type="password" id="adminPass" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="adminDashboard" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close" id="closeDashboard">&times;</span>
+            <h2>Admin Dashboard</h2>
+            <div id="adminStats" class="admin-stats"></div>
+            <div id="adminApplications" class="admin-apps"></div>
+            <button id="logoutBtn" class="btn btn-secondary">Logout</button>
+        </div>
+    </div>
+
     <!-- Loading Spinner -->
     <div id="loadingSpinner" class="loading-spinner" style="display:none;">
         <div class="spinner"></div>
         <p>Preparing your application...</p>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script type="module">
+      import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
+      window.SUPABASE_URL = SUPABASE_URL;
+      window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
+    </script>
     <script src="script.js"></script>
+
 </body>
 </html>

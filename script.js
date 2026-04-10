@@ -38,8 +38,61 @@ function scrollToApply() {
     applySection.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Form Submission to WhatsApp
-const applicationForm = document.getElementById('applicationForm');
+// Updated Form Submission with DB save
+if (applicationForm) {
+  applicationForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Get form data
+    const formData = {
+      fullName: document.getElementById('fullName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      country: document.getElementById('country').value,
+      experience: document.getElementById('experience').value,
+      interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value),
+      message: document.getElementById('message').value.trim(),
+      created_at: new Date().toISOString()
+    };
+
+    // Validate courses
+    if (formData.interests.length === 0) {
+      alert('⚠️ Please select at least one course');
+      return;
+    }
+
+    loadingSpinner.style.display = 'flex';
+
+    try {
+      // Save to DB/localStorage
+      await saveApplication(formData);
+
+      // Original WhatsApp flow (keep for now)
+      const whatsappNumber = '2349065829287';
+      let whatsappMessage = `*🎓 NEW DEV VAULT APPLICATION 🎓*\n\n`;
+      whatsappMessage += `*Name:* ${formData.fullName}\n`;
+      whatsappMessage += `*Email:* ${formData.email}\n`;
+      whatsappMessage += `*Phone:* ${formData.phone}\n`;
+      whatsappMessage += `*Country:* ${formData.country}\n`;
+      whatsappMessage += `*Level:* ${formData.experience}\n`;
+      whatsappMessage += `*Courses:* ${formData.interests.join(', ')}\n`;
+      if (formData.message) whatsappMessage += `\n*Message:* ${formData.message}`;
+      whatsappMessage += `\n⏰ ${new Date().toLocaleString()}`;
+
+      const encodedMessage = encodeURIComponent(whatsappMessage);
+      const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      loadingSpinner.style.display = 'none';
+      showSuccessNotification('✅ Saved to admin dashboard + WhatsApp!');
+      window.open(whatsappURL, '_blank');
+      applicationForm.reset();
+    } catch (error) {
+      loadingSpinner.style.display = 'none';
+      alert('❌ Error saving. WhatsApp still sent.');
+    }
+  });
+}
 const loadingSpinner = document.getElementById('loadingSpinner');
 
 if (applicationForm) {
@@ -303,6 +356,66 @@ document.querySelectorAll('.btn').forEach(button => {
         this.appendChild(ripple);
     });
 });
+
+// Supabase integration (update config/supabase-config.js with your details)
+let supabase;
+try {
+  // CDN for easy use
+  const { createClient } = Supabase;
+  supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+} catch (error) {
+  console.log('Supabase not configured - using localStorage fallback');
+  supabase = null;
+}
+
+const ADMIN_EMAIL = 'tenifayoabdulsomod@gmail.com';
+const ADMIN_PASSWORD = 'For sale@01';
+
+// Admin login function
+async function adminLogin(email, password) {
+  if (!supabase) {
+    // Fallback hardcoded
+    return email === ADMIN_EMAIL && password === ADMIN_PASSWORD;
+  }
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    return !error && data.user;
+  } catch (e) {
+    return false;
+  }
+}
+
+// Admin dashboard data fetch
+async function getAdminData() {
+  if (!supabase) {
+    // LocalStorage fallback
+    const data = localStorage.getItem('applications') || '[]';
+    return JSON.parse(data);
+  }
+  const { data, error } = await supabase
+    .from('applications')
+    .select('*')
+    .order('created_at', { ascending: false });
+  return data || [];
+}
+
+// Save form data
+async function saveApplication(data) {
+  if (!supabase) {
+    // LocalStorage fallback
+    const apps = JSON.parse(localStorage.getItem('applications') || '[]');
+    apps.push({ ...data, created_at: new Date().toISOString() });
+    localStorage.setItem('applications', JSON.stringify(apps));
+    return true;
+  }
+  const { error } = await supabase
+    .from('applications')
+    .insert(data);
+  return !error;
+}
 
 // Video Audio Configuration
 document.addEventListener('DOMContentLoaded', () => {
