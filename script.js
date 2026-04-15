@@ -1,7 +1,10 @@
-// Fixed Supabase access - direct client creation
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Script loaded');
-    
+// import { GOOGLE_API_KEY, WEBSITE_CONTEXT, FALLBACK_RESPONSES, DEFAULT_GREETING } from './ai-config.js';
+
+// Fixed Supabase + Robust AI Chat (Text-Focused, Voice Optional) - No Default Messages
+document.addEventListener('DOMContentLoaded', async function() {
+    console.log('✅ Script loaded - Professional AI v1.0');
+
+    // [NAV, FORM, VIDEO - UNCHANGED]
     // Mobile Menu Toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
@@ -18,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         menuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
     }
 
-    // Navbar interactions
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navLinks?.classList.contains('active')) {
             navLinks.classList.remove('active');
@@ -43,26 +45,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form with fixed Supabase
+    // Supabase Form [UNCHANGED]
     const applicationForm = document.getElementById('applicationForm');
     const submitBtn = applicationForm?.querySelector('button[type="submit"]');
     
     if (applicationForm && submitBtn) {
-        // Direct Supabase client - FULLY FIXED (no module import needed)
         const supabaseUrl = 'https://lxgzhvgsfntstpokmfiw.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4Z3podmdzZm50c3Rwb2ttZml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMzEyODIsImV4cCI6MjA5MTYwNzI4Mn0.tIwPo5p7MWgzar9Yld_YhDJ8VPgiPI_xim7UFnoWK-U';
         
-        // PERFECT FIX - Direct client creation from global CDN supabase
         const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
         
-        console.log('✅ Supabase client created successfully:', supabaseClient);
-        
-        console.log('✅ Supabase client:', supabase);
-        console.log('Insert test ready - create table first!');
-        
-        console.log('✅ Supabase client ready:', supabaseUrl);
-        
-        console.log('Supabase client created:', supabase);
+        console.log('✅ Supabase ready');
         
         applicationForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -85,7 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // UX STATES
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Processing...';
             submitBtn.disabled = true;
@@ -97,33 +89,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (error) throw error;
                 
-                // Show professional success modal
                 document.getElementById('successModal').style.display = 'flex';
                 applicationForm.reset();
-                submitBtn.textContent = 'Submit Application';
-                submitBtn.disabled = false;
-                
             } catch (error) {
                 console.error('Error:', error);
-                submitBtn.textContent = 'Failed';
                 alert('Submission failed: ' + error.message);
-                setTimeout(() => {
-                    submitBtn.textContent = originalText;
-                }, 2000);
             } finally {
-                if (originalText === 'Submit Application') {
-                    submitBtn.textContent = originalText;
-                }
+                submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
             }
         });
 
-        // Success modal close handler
         document.getElementById('closeSuccessBtn')?.addEventListener('click', () => {
             document.getElementById('successModal').style.display = 'none';
         });
 
-        // Close modal on backdrop click
         document.getElementById('successModal')?.addEventListener('click', (e) => {
             if (e.target.id === 'successModal') {
                 e.target.style.display = 'none';
@@ -131,9 +111,147 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+    // AI CHAT - Professional Responses Only
+    const chatElements = {
+        toggle: document.getElementById('chatToggle'),
+        modal: document.getElementById('chatModal'),
+        close: document.getElementById('chatClose'),
+        send: document.getElementById('chatSend'),
+        input: document.getElementById('chatInput'),
+        messages: document.getElementById('chatMessages')
+    };
+
+    const AI_CONFIG = {
+        apiKey: 'AIzaSyCYwDJTTZwNcX_TcAVjfsJnKXIgJRQ24iQ',
+        context: 'DEV VAULT coding school. Frontend $50/₦70k (HTML/CSS/JS/React). Backend $100/₦130k (Node/SQL). Full Stack $140/₦190k. Apply via form.',
+        fallbackResponses: {
+            'hello|hi|hey': 'Hello. What would you like to know about DEV VAULT?',
+            'courses': 'Frontend (HTML/CSS/JS/React) $50/₦70k, Backend (Node/SQL) $100/₦130k, Full Stack $140/₦190k.',
+            'price|pricing|cost': 'Frontend $50/₦70k, Backend $100/₦130k, Full Stack $140/₦190k.',
+            'apply|enroll': 'Use the application form above.',
+            'default': 'Please specify your question about DEV VAULT courses or pricing.'
+        }
+    };
+
+    // Voice support
+    const synth = window.speechSynthesis;
+    function speak(text) {
+        synth.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
+        synth.speak(utterance);
+    }
+
+    // AI Response Logic
+    async function getAIResponse(input) {
+        const lowerInput = input.toLowerCase().trim();
+        
+        try {
+            const prompt = `Professional assistant. Answer user\\'s exact question directly and naturally. Professional tone. No greetings or extras.\nContext: ${AI_CONFIG.context}\n\nQ: ${input}\nA:`;
+            
+            const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${AI_CONFIG.apiKey}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+            });
+            
+            const data = await res.json();
+            const text = data.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+            if (text) {
+                speak(text);
+                return text;
+            }
+        } catch (e) {
+            console.log('Using fallback');
+        }
+        
+        for (const [key, resp] of Object.entries(AI_CONFIG.fallbackResponses)) {
+            if (lowerInput.match(new RegExp(key.replace(/[|]/g, '|')))) return resp;
+        }
+        return AI_CONFIG.fallbackResponses.default;
+    }
+
+    function addMessage(text, type = 'bot') {
+        const div = document.createElement('div');
+        div.className = `chat-message ${type}`;
+        div.innerHTML = `
+            <div class="message-avatar ${type}">
+                <i class="fas fa-${type === 'bot' ? 'robot' : 'user'}"></i>
+            </div>
+            <div class="message-bubble">${text.replace(/\\n/g, '<br>')}</div>
+        `;
+        chatElements.messages.appendChild(div);
+        chatElements.messages.scrollTop = chatElements.messages.scrollHeight;
+    }
+
+    async function sendMessage(input) {
+        input = input.trim();
+        if (!input) return;
+        
+        addMessage(input, 'user');
+        chatElements.input.value = '';
+        chatElements.input.focus();
+        
+        const typing = document.createElement('div');
+        typing.className = 'chat-message bot typing-indicator';
+        typing.innerHTML = '<div class="message-avatar bot"><i class="fas fa-robot"></i></div><div class="message-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>';
+        chatElements.messages.appendChild(typing);
+        chatElements.messages.scrollTop = chatElements.messages.scrollHeight;
+        
+        const response = await getAIResponse(input);
+        chatElements.messages.removeChild(typing);
+        addMessage(response, 'bot');
+    }
+
+    // Event Listeners - FIXED Toggle
+    if (chatElements.toggle) {
+        chatElements.toggle.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            chatElements.modal.style.display = 'flex';
+            chatElements.modal.classList.add('active');
+            setTimeout(() => {
+                chatElements.input.focus();
+            }, 100);
+        });
+    }
+
+    if (chatElements.send) {
+        chatElements.send.addEventListener('click', () => sendMessage(chatElements.input.value));
+    }
+
+    if (chatElements.input) {
+        chatElements.input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage(chatElements.input.value);
+            }
+        });
+    }
+
+    if (chatElements.close) {
+        chatElements.close.addEventListener('click', () => {
+            chatElements.modal.style.display = 'none';
+            chatElements.modal.classList.remove('active');
+        });
+    }
+
+    chatElements.modal.addEventListener('click', (e) => {
+        if (e.target === chatElements.modal) {
+            chatElements.modal.classList.remove('active');
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && chatElements.modal.classList.contains('active')) {
+            chatElements.modal.classList.remove('active');
+        }
+    });
+
+    // Smooth scroll & video [UNCHANGED]
+    document.querySelectorAll('a[href^=\"#\"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             const target = document.querySelector(href);
             if (target && href !== '#') {
@@ -147,7 +265,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    // Video
     const playBtn = document.getElementById('playVideoBtn');
     const videoOverlay = document.getElementById('videoOverlay');
     const video = document.getElementById('devVaultVideo');
@@ -164,4 +281,7 @@ document.addEventListener('DOMContentLoaded', function() {
         video.addEventListener('play', () => videoOverlay.style.display = 'none');
         video.addEventListener('pause', () => videoOverlay.style.display = 'flex');
     }
+
+    console.log('✅ Professional AI ready - No defaults');
 });
+
