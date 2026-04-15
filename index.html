@@ -531,7 +531,36 @@
                         </div>
                         <div class="form-group">
                             <label for="phone">WhatsApp Number *</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="+234 (Country code required)">
+                            <div class="phone-input-wrapper">
+                                <select id="countryCode" class="country-code-select">
+                                    <option value="+234">🇳🇬 +234</option>
+                                    <option value="+1">🇺🇸 +1</option>
+                                    <option value="+44">🇬🇧 +44</option>
+                                    <option value="+1">🇨🇦 +1</option>
+                                    <option value="+61">🇦🇺 +61</option>
+                                    <option value="+233">🇬🇭 +233</option>
+                                    <option value="+254">🇰🇪 +254</option>
+                                    <option value="+27">🇿🇦 +27</option>
+                                    <option value="+49">🇩🇪 +49</option>
+                                    <option value="+33">🇫🇷 +33</option>
+                                    <option value="+91">🇮🇳 +91</option>
+                                    <option value="+971">🇦🇪 +971</option>
+                                    <option value="+81">🇯🇵 +81</option>
+                                    <option value="+82">🇰🇷 +82</option>
+                                    <option value="+86">🇨🇳 +86</option>
+                                    <option value="+55">🇧🇷 +55</option>
+                                    <option value="+7">🇷🇺 +7</option>
+                                    <option value="+34">🇪🇸 +34</option>
+                                    <option value="+39">🇮🇹 +39</option>
+                                    <option value="+31">🇳🇱 +31</option>
+                                    <option value="+46">🇸🇪 +46</option>
+                                    <option value="+47">🇳🇴 +47</option>
+                                    <option value="+45">🇩🇰 +45</option>
+                                    <option value="+30">🇬🇷 +30</option>
+                                    <option value="+90">🇹🇷 +90</option>
+                                </select>
+                                <input type="tel" id="phone" name="phone" required placeholder="Enter phone number">
+                            </div>
                         </div>
                     </div>
 
@@ -607,7 +636,7 @@
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-large">Send via WhatsApp</button>
+                    <button type="submit" class="btn btn-primary btn-large">Submit Application</button>
                 </form>
             </div>
         </div>
@@ -627,7 +656,7 @@
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <h3>WhatsApp</h3>
-                    <p>09065829287</p>
+                    <p>Contact Us on WhatsApp</p>
                     <a href="https://wa.me/2349065829287" target="_blank" class="btn btn-outline">Message on WhatsApp</a>
                 </div>
 
@@ -744,6 +773,18 @@
         </div>
     </div>
 
+    <!-- Success Modal -->
+    <div id="successModal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>✅ Application Submitted Successfully!</h2>
+            <p>Thank you for applying to DEV VAULT! Our admissions team will contact you via WhatsApp within 24 hours to discuss your enrollment and coding journey.</p>
+            <button id="closeSuccessBtn" class="btn btn-primary">Thank You!</button>
+        </div>
+    </div>
+
     <!-- Loading Spinner -->
     <div id="loadingSpinner" class="loading-spinner" style="display:none;">
         <div class="spinner"></div>
@@ -751,11 +792,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="module">
-      import { SUPABASE_URL, SUPABASE_ANON_KEY } from './supabase-config.js';
-      window.SUPABASE_URL = SUPABASE_URL;
-      window.SUPABASE_ANON_KEY = SUPABASE_ANON_KEY;
-    </script>
     <script src="script.js"></script>
 
 </body>

@@ -1,6 +1,8 @@
-// DOMContentLoaded ensures DOM is ready
+// Fixed Supabase access - direct client creation
 document.addEventListener('DOMContentLoaded', function() {
-    // Mobile Menu Toggle - Clean production version
+    console.log('Script loaded');
+    
+    // Mobile Menu Toggle
     const menuToggle = document.getElementById('menuToggle');
     const navLinks = document.getElementById('navLinks');
     
@@ -13,53 +15,124 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         menuToggle.addEventListener('click', toggleMenu);
-        // Touch support for mobile
         menuToggle.addEventListener('touchstart', toggleMenu, { passive: false });
     }
 
-    // WhatsApp Form Submission - Silent instant redirect
-    const applicationForm = document.getElementById('applicationForm');
-    
-    if (applicationForm) {
-        applicationForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                fullName: document.getElementById('fullName').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                country: document.getElementById('country').value,
-                experience: document.getElementById('experience').value,
-                interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value),
-                message: document.getElementById('message').value.trim(),
-                created_at: new Date().toISOString()
-            };
-            
-            // Silent validation - no alerts/spinner
-            if (formData.interests.length === 0) {
-                return;
+    // Navbar interactions
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks?.classList.contains('active')) {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+    });
+
+    if (navLinks) {
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A' && window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
             }
-            
-            // Professional WhatsApp message format
-            let whatsappMessage = `*DEV VAULT - NEW APPLICATION*\\n\\n`;
-            whatsappMessage += `👤 *Name:* ${formData.fullName}\\n`;
-            whatsappMessage += `📧 *Email:* ${formData.email}\\n`;
-            whatsappMessage += `📱 *WhatsApp:* ${formData.phone}\\n`;
-            whatsappMessage += `🌍 *Country:* ${formData.country}\\n`;
-            whatsappMessage += `📊 *Experience:* ${formData.experience}\\n`;
-            whatsappMessage += `📚 *Courses:* ${formData.interests.join(', ')}\\n`;
-            if (formData.message) whatsappMessage += `💬 *Message:* ${formData.message}\\n`;
-            whatsappMessage += `\\n⏰ *${new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' })}*`;
-            
-            const whatsappURL = `https://wa.me/2349065829287?text=${encodeURIComponent(whatsappMessage)}`;
-            
-            // Instant silent redirect - no user feedback
-            window.location.href = whatsappURL;
         });
     }
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^=\"#"]').forEach(anchor => {
+    document.addEventListener('click', (e) => {
+        if (navLinks?.classList.contains('active') && 
+            !navLinks.contains(e.target) && !menuToggle?.contains(e.target)) {
+            navLinks.classList.remove('active');
+            menuToggle.classList.remove('active');
+        }
+    });
+
+    // Form with fixed Supabase
+    const applicationForm = document.getElementById('applicationForm');
+    const submitBtn = applicationForm?.querySelector('button[type="submit"]');
+    
+    if (applicationForm && submitBtn) {
+        // Direct Supabase client - FULLY FIXED (no module import needed)
+        const supabaseUrl = 'https://lxgzhvgsfntstpokmfiw.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx4Z3podmdzZm50c3Rwb2ttZml3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYwMzEyODIsImV4cCI6MjA5MTYwNzI4Mn0.tIwPo5p7MWgzar9Yld_YhDJ8VPgiPI_xim7UFnoWK-U';
+        
+        // PERFECT FIX - Direct client creation from global CDN supabase
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        console.log('✅ Supabase client created successfully:', supabaseClient);
+        
+        console.log('✅ Supabase client:', supabase);
+        console.log('Insert test ready - create table first!');
+        
+        console.log('✅ Supabase client ready:', supabaseUrl);
+        
+        console.log('Supabase client created:', supabase);
+        
+        applicationForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const countryCode = document.getElementById('countryCode')?.value || '+234';
+            const phone = document.getElementById('phone').value.trim();
+            
+            const formData = {
+                full_name: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: countryCode + phone,
+                country: document.getElementById('country').value,
+                experience_level: document.getElementById('experience').value,
+                interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(cb => cb.value),
+                message: document.getElementById('message').value.trim()
+            };
+            
+            if (!formData.interests.length) {
+                alert('Please select at least one course interest.');
+                return;
+            }
+            
+            // UX STATES
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            
+            try {
+                const { data, error } = await supabaseClient
+                    .from('applications')
+                    .insert([formData]);
+                
+                if (error) throw error;
+                
+                // Show professional success modal
+                document.getElementById('successModal').style.display = 'flex';
+                applicationForm.reset();
+                submitBtn.textContent = 'Submit Application';
+                submitBtn.disabled = false;
+                
+            } catch (error) {
+                console.error('Error:', error);
+                submitBtn.textContent = 'Failed';
+                alert('Submission failed: ' + error.message);
+                setTimeout(() => {
+                    submitBtn.textContent = originalText;
+                }, 2000);
+            } finally {
+                if (originalText === 'Submit Application') {
+                    submitBtn.textContent = originalText;
+                }
+                submitBtn.disabled = false;
+            }
+        });
+
+        // Success modal close handler
+        document.getElementById('closeSuccessBtn')?.addEventListener('click', () => {
+            document.getElementById('successModal').style.display = 'none';
+        });
+
+        // Close modal on backdrop click
+        document.getElementById('successModal')?.addEventListener('click', (e) => {
+            if (e.target.id === 'successModal') {
+                e.target.style.display = 'none';
+            }
+        });
+    }
+
+    // Smooth scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
             const target = document.querySelector(href);
@@ -70,61 +143,25 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ScrollToApply utility
     window.scrollToApply = function() {
-        const applySection = document.getElementById('apply');
-        if (applySection) {
-            applySection.scrollIntoView({ behavior: 'smooth' });
-        }
+        document.getElementById('apply')?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    // Video controls
+    // Video
     const playBtn = document.getElementById('playVideoBtn');
     const videoOverlay = document.getElementById('videoOverlay');
     const video = document.getElementById('devVaultVideo');
     
     if (playBtn && videoOverlay && video) {
-        playBtn.addEventListener('click', function(e) {
+        playBtn.addEventListener('click', (e) => {
             e.preventDefault();
             video.muted = false;
             video.volume = 1.0;
             videoOverlay.style.display = 'none';
-            video.play().catch(() => {
-                videoOverlay.style.display = 'flex';
-            });
+            video.play().catch(() => videoOverlay.style.display = 'flex');
         });
-        
         video.addEventListener('ended', () => videoOverlay.style.display = 'flex');
         video.addEventListener('play', () => videoOverlay.style.display = 'none');
         video.addEventListener('pause', () => videoOverlay.style.display = 'flex');
     }
-
-    // Phone input formatting
-    const phoneInput = document.getElementById('phone');
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/[^\\d+]/g, '');
-            if (!value.startsWith('+') && value) {
-                value = '+' + value;
-            }
-            e.target.value = value;
-        });
-    }
-
-    // ESC closes mobile menu
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && navLinks && navLinks.classList.contains('active')) {
-            navLinks.classList.remove('active');
-            menuToggle.classList.remove('active');
-        }
-    });
-
-    // Close menu on outside click
-    document.addEventListener('click', function(e) {
-        if (navLinks && navLinks.classList.contains('active') && 
-            !navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-            navLinks.classList.remove('active');
-            menuToggle.classList.remove('active');
-        }
-    });
 });
