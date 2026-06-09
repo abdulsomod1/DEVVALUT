@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEV-VAULT Playground - Interactive Learning Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="playground.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo-section">
+                    <a href="index.html" style="text-decoration: none; display: flex; align-items: center; gap: 12px;">
+                        <img src="Image/dev-vault.jpeg" alt="DEV VAULT Logo" class="logo">
+                        <span class="brand-name">DEV VAULT</span>
+                    </a>
+                </div>
+                
+                <button class="menu-toggle" id="menuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#about">About Us</a></li>
+                    <li><a href="index.html#courses">Courses</a></li>
+                    <li><a href="index.html#pricing">Pricing</a></li>
+                    <li><a href="#challenges">Challenges</a></li>
+                    <li><a href="#templates">Templates</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="playground-hero">
+        <div class="container">
+            <div class="playground-hero-content">
+                <h1 class="playground-hero-title">
+                    <span class="rocket-icon">🚀</span> DEV-VAULT Playground
+                </h1>
+                <p class="playground-hero-subtitle">Code. Build. Learn. Repeat.</p>
+                <p class="playground-hero-description">Master programming through interactive challenges, project templates, and exclusive learning resources.</p>
+                <div class="playground-search-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="globalSearch" placeholder="Search challenges, templates, or concepts...">
+                    </div>
+                </div>
+                <div class="playground-stats">
+                    <div class="stat">
+                        <div class="stat-number">10</div>
+                        <div class="stat-label">Hall of Coders</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100+</div>
+                        <div class="stat-label">Challenges</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">60+</div>
+                        <div class="stat-label">Templates</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">7</div>
+                        <div class="stat-label">Learning Vaults</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <div class="playground-nav-tabs sticky-tabs">
+        <div class="container">
+            <button class="tab-btn active" data-tab="coders">
+                <i class="fas fa-users"></i> Hall of Coders
+            </button>
+            <button class="tab-btn" data-tab="challenges">
+                <i class="fas fa-code"></i> Challenge Zone
+            </button>
+            <button class="tab-btn" data-tab="templates">
+                <i class="fas fa-cube"></i> Project Forge
+            </button>
+            <button class="tab-btn" data-tab="learning">
+                <i class="fas fa-book"></i> Learning Vault
+            </button>
+        </div>
+    </div>
+
+    <!-- Hall of Coders Section -->
+    <section id="coders" class="tab-content active">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hall of Coders</h2>
+                <p>Legendary developers who shaped the digital world</p>
+            </div>
+
+            <div class="coders-grid">
+                <!-- Ada Lovelace -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">👩‍💻</div>
+                    <div class="coder-content">
+                        <h3>Ada Lovelace</h3>
+                        <p class="coder-period">1815 - 1852</p>
+                        <p class="coder-bio">Pioneer mathematician and the world's first computer programmer.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>First algorithm designed to be processed by a machine</li>
+                                <li>Notes on the Analytical Engine</li>
+                                <li>Foundational concepts of computing</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Early computing concepts and algorithm theory</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alan Turing -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">🧠</div>
+                    <div class="coder-content">
+                        <h3>Alan Turing</h3>
+                        <p class="coder-period">1912 - 1954</p>
+                        <p class="coder-bio">Mathematician and logician, founder of theoretical computer science.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>Turing Machine concept</li>
+                                <li>Computability theory</li>
+                                <li>Artificial Intelligence foundations</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Turing Machine, AI test framework</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dennis Ritchie -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">💾</div>
+                    <div class="coder-content">
+                        <h3>Dennis Ritchie</h3>
+                        <p class="coder-period">1941 - 2011</p>
+                        <p class="coder-bio">Creator of the C programming language and co-developer of Unix.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>C Programming Language</li>
+                                <li>Unix Operating System</li>
+                                <li>Modern software development</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>C, Unix, Turing Award winner</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linus Torvalds -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">🐧</div>
+                    <div class="coder-content">
+                        <h3>Linus Torvalds</h3>
+                        <p class="coder-period">1969 - Present</p>
+                        <p class="coder-bio">Creator of Linux kernel, revolutionizing open-source software.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>Linux Kernel</li>
+                                <li>Git Version Control</li>
+                                <li>Open-source movement leadership</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Linux, Git, open-source ecosystem</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Guido van Rossum -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">🐍</div>
+                    <div class="coder-content">
+                        <h3>Guido van Rossum</h3>
+                        <p class="coder-period">1956 - Present</p>
+                        <p class="coder-bio">Creator of Python, making programming accessible to everyone.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>Python Programming Language</li>
+                                <li>Readable code philosophy</li>
+                                <li>Democratizing programming</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Python, TIOBE Lifetime Achievement Award</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brendan Eich -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #ff9a56 0%, #ff6a88 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">⚡</div>
+                    <div class="coder-content">
+                        <h3>Brendan Eich</h3>
+                        <p class="coder-period">1961 - Present</p>
+                        <p class="coder-bio">Creator of JavaScript, the language of the web.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>JavaScript Language</li>
+                                <li>Mozilla Firefox</li>
+                                <li>Web standardization</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>JavaScript, Firefox browser</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- James Gosling -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">☕</div>
+                    <div class="coder-content">
+                        <h3>James Gosling</h3>
+                        <p class="coder-period">1955 - Present</p>
+                        <p class="coder-bio">Architect of the Java programming language.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>Java Programming Language</li>
+                                <li>Write Once, Run Anywhere</li>
+                                <li>Enterprise computing</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Java, JVM ecosystem</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bjarne Stroustrup -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">⚙️</div>
+                    <div class="coder-content">
+                        <h3>Bjarne Stroustrup</h3>
+                        <p class="coder-period">1950 - Present</p>
+                        <p class="coder-bio">Designer of C++, combining power with expressiveness.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>C++ Programming Language</li>
+                                <li>Object-oriented programming</li>
+                                <li>Systems programming</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>C++, modern systems programming</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ryan Dahl -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #68d26b 0%, #2ab82c 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">🚀</div>
+                    <div class="coder-content">
+                        <h3>Ryan Dahl</h3>
+                        <p class="coder-period">1981 - Present</p>
+                        <p class="coder-bio">Creator of Node.js, enabling JavaScript on the server.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>Node.js Runtime</li>
+                                <li>Deno and Rust ecosystem</li>
+                                <li>Server-side JavaScript</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Node.js, Deno</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Evan You -->
+                <div class="coder-card">
+                    <div class="coder-image" style="background: linear-gradient(135deg, #42d392 0%, #647132 100%); display: flex; align-items: center; justify-content: center; font-size: 4rem;">🖤</div>
+                    <div class="coder-content">
+                        <h3>Evan You</h3>
+                        <p class="coder-period">1987 - Present</p>
+                        <p class="coder-bio">Creator of Vue.js, the progressive JavaScript framework.</p>
+                        <div class="coder-section">
+                            <h4>Key Contributions</h4>
+                            <ul>
+                                <li>Vue.js Framework</li>
+                                <li>Progressive framework design</li>
+                                <li>Developer experience focus</li>
+                            </ul>
+                        </div>
+                        <div class="coder-section">
+                            <h4>Created</h4>
+                            <p>Vue.js, modern frontend development</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Zone Section -->
+    <section id="challenges" class="tab-content">
+        <div class="container">
+            <div class="section-header">
+                <h2>Challenge Zone</h2>
+                <p>Test your skills with curated coding challenges</p>
+            </div>
+
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Level:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-level="all">All</button>
+                        <button class="filter-btn" data-level="beginner">Beginner</button>
+                        <button class="filter-btn" data-level="intermediate">Intermediate</button>
+                        <button class="filter-btn" data-level="advanced">Advanced</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Language:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-language="all">All</button>
+                        <button class="filter-btn" data-language="html">HTML</button>
+                        <button class="filter-btn" data-language="css">CSS</button>
+                        <button class="filter-btn" data-language="javascript">JavaScript</button>
+                        <button class="filter-btn" data-language="react">React</button>
+                        <button class="filter-btn" data-language="python">Python</button>
+                        <button class="filter-btn" data-language="rust">Rust</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="challengesGrid" class="challenges-grid">
+                <!-- Challenges will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Forge Section -->
+    <section id="templates" class="tab-content">
+        <div class="container">
+            <div class="section-header">
+                <h2>Project Forge</h2>
+                <p>60+ project templates to build portfolio-worthy applications</p>
+            </div>
+
+            <div class="filter-controls">
+                <div class="filter-group">
+                    <label>Difficulty:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-difficulty="all">All</button>
+                        <button class="filter-btn" data-difficulty="beginner">Beginner</button>
+                        <button class="filter-btn" data-difficulty="intermediate">Intermediate</button>
+                        <button class="filter-btn" data-difficulty="professional">Professional</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">All</button>
+                        <button class="filter-btn" data-category="frontend">Frontend</button>
+                        <button class="filter-btn" data-category="fullstack">Full Stack</button>
+                        <button class="filter-btn" data-category="backend">Backend</button>
+                        <button class="filter-btn" data-category="game">Game Dev</button>
+                        <button class="filter-btn" data-category="mobile">Mobile</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="templatesGrid" class="templates-grid">
+                <!-- Templates will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Vault Section -->
+    <section id="learning" class="tab-content">
+        <div class="container">
+            <div class="section-header">
+                <h2>Learning Vault</h2>
+                <p>Advanced concepts and rare programming gems</p>
+            </div>
+
+            <div class="vault-tabs">
+                <button class="vault-tab-btn active" data-vault="html">HTML Vault</button>
+                <button class="vault-tab-btn" data-vault="css">CSS Vault</button>
+                <button class="vault-tab-btn" data-vault="javascript">JavaScript Vault</button>
+                <button class="vault-tab-btn" data-vault="react">React Vault</button>
+                <button class="vault-tab-btn" data-vault="python">Python Vault</button>
+                <button class="vault-tab-btn" data-vault="rust">Rust Vault</button>
+                <button class="vault-tab-btn" data-vault="django">Django Vault</button>
+            </div>
+
+            <div id="vaultsContainer" class="vaults-container">
+                <!-- Vaults will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DEV VAULT Playground</h4>
+                    <p>Interactive learning platform designed for developers who want to master their craft.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="index.html#courses">Courses</a></li>
+                        <li><a href="index.html#pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://wa.me/2349065829287" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.tiktok.com/@dev_vault" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://x.com/marufat88235" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/dev.vault.coding.school/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DEV VAULT Playground. All rights reserved. | Learning Through Code</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="playground.js"></script>
+</body>
+</html>
