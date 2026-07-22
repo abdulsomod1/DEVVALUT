@@ -269,12 +269,26 @@ document.addEventListener('DOMContentLoaded', function() {
         vaultsContainer: !!containers.vaultsContainer
     });
     
-    // Initialize in correct order
+// Initialize in correct order
     initializeMenuToggle();
     initializeTabSwitching();
     initializeSearch();
-    
-    // Wait a tick to ensure DOM is ready
+
+    const initialHash = window.location.hash.replace('#', '');
+    if (initialHash) {
+        setTimeout(() => {
+            activateTab(initialHash);
+            const target = document.getElementById(initialHash);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 120);
+    }
+    initializeLearningVaults();
+    initializeFilters();
+    setupSmoothScrolling();
+
+    // Wait a tick to ensure DOM is fully painted
     setTimeout(() => {
         initializeChallenges();
         initializeTemplates();
@@ -327,6 +341,31 @@ function initializeMenuToggle() {
 }
 
 // Tab Switching
+function activateTab(tabName) {
+    if (!tabName) return false;
+
+    const tabBtn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+    const tabElement = document.getElementById(tabName);
+
+    if (!tabBtn || !tabElement) {
+        console.error('Tab element not found:', tabName);
+        return false;
+    }
+
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+    tabBtn.classList.add('active');
+    tabElement.classList.add('active');
+
+    if (window.location.hash !== `#${tabName}`) {
+        history.replaceState(null, '', `#${tabName}`);
+    }
+
+    console.log('Activated tab:', tabName);
+    return true;
+}
+
 function initializeTabSwitching() {
     const tabBtns = document.querySelectorAll('.tab-btn');
     const tabContents = document.querySelectorAll('.tab-content');
@@ -337,20 +376,7 @@ function initializeTabSwitching() {
         btn.addEventListener('click', function() {
             const tabName = this.getAttribute('data-tab');
             console.log('Switching to tab:', tabName);
-            
-            // Remove active class from all buttons and contents
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-            
-            // Add active class to clicked button and corresponding content
-            this.classList.add('active');
-            const tabElement = document.getElementById(tabName);
-            if (tabElement) {
-                tabElement.classList.add('active');
-                console.log('Activated tab:', tabName);
-            } else {
-                console.error('Tab element not found:', tabName);
-            }
+            activateTab(tabName);
         });
     });
 }
@@ -370,7 +396,7 @@ function renderChallenges(challenges) {
     console.log('Rendering', challenges.length, 'challenges');
     
     container.innerHTML = challenges.map(challenge => `
-        <div class="challenge-card" data-difficulty="${challenge.difficulty}" data-language="${challenge.language}">
+        <div class="challenge-card" data-challenge-id="${challenge.id}" data-difficulty="${challenge.difficulty}" data-language="${challenge.language}">
             <div class="challenge-header">
                 <h3 class="challenge-title">${challenge.title}</h3>
                 <span class="challenge-difficulty ${challenge.difficulty}">${challenge.difficulty}</span>
@@ -379,7 +405,7 @@ function renderChallenges(challenges) {
             <p class="challenge-description">${challenge.description}</p>
             <div class="challenge-footer">
                 <span>+${challenge.points} points</span>
-                <a href="#" class="challenge-link" onclick="event.preventDefault();">
+                <a href="javascript:void(0);" class="challenge-link" data-challenge-id="${challenge.id}" onclick="scrollToChallenge(event, ${challenge.id})">
                     Start Challenge <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -402,7 +428,7 @@ function renderTemplates(templates) {
     console.log('Rendering', templates.length, 'templates');
     
     container.innerHTML = templates.map(template => `
-        <div class="template-card" data-difficulty="${template.difficulty}" data-category="${template.category}">
+        <div class="template-card" data-template-id="${template.id}" data-difficulty="${template.difficulty}" data-category="${template.category}">
             <div class="template-preview">${template.icon}</div>
             <div class="template-info">
                 <h3 class="template-name">${template.name}</h3>
@@ -411,7 +437,7 @@ function renderTemplates(templates) {
                     <span class="template-badge category">${template.category}</span>
                 </div>
                 <p class="template-description">${template.description}</p>
-                <a href="#" class="template-btn" onclick="event.preventDefault();">Use Template →</a>
+                <a href="javascript:void(0);" class="template-btn" data-template-id="${template.id}" onclick="scrollToTemplate(event, ${template.id})">Use Template →</a>
             </div>
         </div>
     `).join('');
@@ -648,11 +674,293 @@ function setupSmoothScrolling() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
-            if (href !== '#' && document.querySelector(href)) {
+            if (!href || href === '#') return;
+
+            const targetId = href.slice(1);
+            const target = document.getElementById(targetId);
+            if (target) {
                 e.preventDefault();
-                const element = document.querySelector(href);
-                element.scrollIntoView({ behavior: 'smooth' });
+
+                if (target.classList.contains('tab-content')) {
+                    activateTab(targetId);
+                }
+
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
             }
         });
     });
+}
+
+const challengeExerciseBank = {
+    html: [
+        {
+            prompt: 'Rewrite this HTML so the form uses a semantic form structure with labels and a proper submit button.',
+            starter: `<div class="signup-box">\n  <input type="text" placeholder="Name">\n  <button>Send</button>\n</div>`,
+            required: ['<form', '<label', '<input', 'type="text"', '<button']
+        },
+        {
+            prompt: 'Fix the navigation markup so it is semantic and accessible.',
+            starter: `<nav>\n  <div><a href="#">Home</a></div>\n  <div><a href="#">About</a></div>\n</nav>`,
+            required: ['<ul', '<li', '<a', 'href=']
+        }
+    ],
+    css: [
+        {
+            prompt: 'Rewrite this CSS so the card uses a centered flex layout.',
+            starter: `.card {\n  background: #fff;\n  padding: 20px;\n}\n`,
+            required: ['display:flex', 'justify-content:center', 'align-items:center']
+        },
+        {
+            prompt: 'Fix this stylesheet so the button has a hover state and rounded corners.',
+            starter: `.btn {\n  padding: 10px 16px;\n  background: #0ea5e9;\n}\n`,
+            required: ['border-radius', ':hover']
+        }
+    ],
+    javascript: [
+        {
+            prompt: 'Rewrite this JavaScript so the button responds to a click event and shows an alert.',
+            starter: `const btn = document.querySelector('.btn');\nbtn.onclick = function() {\n  console.log('clicked');\n};`,
+            required: ['addEventListener', 'click', 'alert']
+        },
+        {
+            prompt: 'Fix this function so it returns the sum of two numbers.',
+            starter: `function add(a, b) {\n  return a - b;\n}`,
+            required: ['return', 'a', 'b']
+        }
+    ],
+    react: [
+        {
+            prompt: 'Rewrite this component so it uses a state hook and shows the input value.',
+            starter: `function Greeting() {\n  const [name, setName] = useState('');\n  return <input />;\n}`,
+            required: ['useState', 'setName', 'value']
+        },
+        {
+            prompt: 'Fix this component so it renders a heading from props.',
+            starter: `function Card(props) {\n  return <h2>{props.title}</h2>;\n}`,
+            required: ['props', 'title']
+        }
+    ],
+    python: [
+        {
+            prompt: 'Rewrite this Python so it returns the largest number from a list.',
+            starter: `def largest(nums):\n    return max(nums)`,
+            required: ['def', 'max', 'return']
+        },
+        {
+            prompt: 'Fix this function so it checks whether a number is even.',
+            starter: `def is_even(n):\n    return n % 2 == 1`,
+            required: ['% 2', '== 0']
+        }
+    ],
+    rust: [
+        {
+            prompt: 'Rewrite this Rust so it returns the sum of two integers.',
+            starter: `fn add(a: i32, b: i32) -> i32 {\n    a - b\n}`,
+            required: ['fn', 'i32', 'a + b']
+        },
+        {
+            prompt: 'Fix this Rust function so it prints a greeting.',
+            starter: `fn greet() {\n    println!("Hello");\n}`,
+            required: ['fn', 'println!']
+        }
+    ]
+};
+
+function getChallengeExercise(challenge) {
+    const pool = challengeExerciseBank[challenge.language] || challengeExerciseBank.javascript;
+    return pool[(challenge.id - 1) % pool.length];
+}
+
+function getTemplateInstructions(template) {
+    const category = template.category || 'frontend';
+    const name = template.name || 'website';
+
+    const baseSteps = [
+        `Start with a clear ${name.toLowerCase()} concept and a simple wireframe.`,
+        'Create the main layout with a hero section, content area, and clear call-to-action.',
+        'Style the page with a consistent color palette and spacing system.',
+        'Add interactive touches such as hover states, mobile navigation, or simple animations.',
+        'Test the page on desktop and mobile before publishing it.'
+    ];
+
+    if (category === 'fullstack') {
+        baseSteps.splice(1, 0, 'Plan your data flow first and define the API routes or database model.');
+        baseSteps.splice(3, 0, 'Connect the frontend form or UI to your backend logic and show real feedback.');
+    } else if (category === 'backend') {
+        baseSteps.splice(1, 0, 'Define your endpoints, request payloads, and validation rules.');
+        baseSteps.splice(3, 0, 'Test each route with sample requests and document the responses.');
+    } else if (category === 'game') {
+        baseSteps.splice(1, 0, 'Build the game loop and controller input before adding visuals.');
+        baseSteps.splice(3, 0, 'Add scoring, collision rules, and a restart flow.');
+    } else if (category === 'mobile') {
+        baseSteps.splice(1, 0, 'Design for a small screen first and keep touch targets large.');
+        baseSteps.splice(3, 0, 'Test navigation, forms, and loading states on a mobile viewport.');
+    }
+
+    return {
+        title: `Build ${name}`,
+        summary: `A practical plan for creating a ${category} project that feels polished and usable.`,
+        steps: baseSteps,
+        stack: category === 'frontend' ? 'HTML, CSS, and JavaScript' : category === 'fullstack' ? 'Frontend + API + database' : category === 'backend' ? 'API routes, validation, and storage' : category === 'game' ? 'Canvas, state management, and gameplay logic' : 'Responsive UI and mobile-first interactions'
+    };
+}
+
+function normalizeCode(text) {
+    return (text || '').toLowerCase().replace(/\s+/g, '').replace(/['"]/g, '');
+}
+
+function checkAnswer(userInput, exercise) {
+    const normalizedUser = normalizeCode(userInput);
+    return exercise.required.every(token => normalizedUser.includes(normalizeCode(token)));
+}
+
+function showDetailModal(type, item) {
+    const modal = document.getElementById('detailModal');
+    const content = document.getElementById('detailModalContent');
+    const closeBtn = document.getElementById('detailModalClose');
+
+    if (!modal || !content) return;
+
+    const isChallenge = type === 'challenge';
+    const eyebrow = isChallenge ? 'Challenge Launch' : 'Template Launch';
+    const title = isChallenge ? item.title : item.name;
+    const subtitle = isChallenge
+        ? `${item.difficulty} • ${item.language.toUpperCase()} • +${item.points} points`
+        : `${item.difficulty} • ${item.category}`;
+    const description = item.description;
+
+    if (isChallenge) {
+        const exercise = getChallengeExercise(item);
+        content.innerHTML = `
+            <div class="detail-modal-content">
+                <span class="eyebrow">${eyebrow}</span>
+                <h3 id="detailModalTitle">${title}</h3>
+                <p><strong>${subtitle}</strong></p>
+                <p>${description}</p>
+                <div class="practice-block">
+                    <h4>Rewrite the code</h4>
+                    <p>${exercise.prompt}</p>
+                    <pre class="practice-starter">${escapeHtml(exercise.starter)}</pre>
+                    <textarea class="practice-input" placeholder="Write the corrected version here..."></textarea>
+                    <div class="detail-modal-actions">
+                        <button class="primary" data-action="check">Check Answer</button>
+                        <button class="secondary" data-action="close">Close</button>
+                    </div>
+                    <div class="practice-result" data-result></div>
+                </div>
+            </div>
+        `;
+
+        const checkButton = content.querySelector('[data-action="check"]');
+        const closeButton = content.querySelector('[data-action="close"]');
+        const input = content.querySelector('.practice-input');
+        const result = content.querySelector('[data-result]');
+
+        checkButton?.addEventListener('click', () => {
+            if (!input || !result) return;
+            const isCorrect = checkAnswer(input.value, exercise);
+            result.innerHTML = isCorrect
+                ? '<span class="success">Correct! That version is fixed and ready to use.</span>'
+                : '<span class="error">Not quite yet. Review the prompt and try a cleaner version.</span>';
+            if (isCorrect) {
+                highlightAndFocusCard('challenge', item.id);
+            }
+        });
+
+        closeButton?.addEventListener('click', closeModal);
+    } else {
+        const instructions = getTemplateInstructions(item);
+        content.innerHTML = `
+            <div class="detail-modal-content">
+                <span class="eyebrow">${eyebrow}</span>
+                <h3 id="detailModalTitle">${title}</h3>
+                <p><strong>${subtitle}</strong></p>
+                <p>${description}</p>
+                <div class="practice-block">
+                    <h4>Build guide</h4>
+                    <p>${instructions.summary}</p>
+                    <div class="guide-list">
+                        ${instructions.steps.map(step => `<div class="guide-step">${step}</div>`).join('')}
+                    </div>
+                    <p><strong>Suggested stack:</strong> ${instructions.stack}</p>
+                </div>
+                <div class="detail-modal-actions">
+                    <button class="primary" data-action="launch">Start Building</button>
+                    <button class="secondary" data-action="close">Close</button>
+                </div>
+            </div>
+        `;
+
+        content.querySelector('[data-action="launch"]')?.addEventListener('click', () => {
+            highlightAndFocusCard('template', item.id);
+            closeModal();
+        });
+
+        content.querySelector('[data-action="close"]')?.addEventListener('click', closeModal);
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+    modal.querySelector('[data-close-modal]')?.addEventListener('click', closeModal);
+
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+}
+
+function closeModal() {
+    const modal = document.getElementById('detailModal');
+    if (modal) {
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+    }
+}
+
+function highlightAndFocusCard(type, id) {
+    const selector = type === 'challenge' ? `.challenge-card[data-challenge-id="${id}"]` : `.template-card[data-template-id="${id}"]`;
+    const card = document.querySelector(selector);
+
+    if (!card) {
+        if (type === 'challenge') {
+            activateTab('challenges');
+        } else {
+            activateTab('templates');
+        }
+        setTimeout(() => highlightAndFocusCard(type, id), 180);
+        return;
+    }
+
+    card.classList.add('is-highlighted');
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    setTimeout(() => card.classList.remove('is-highlighted'), 2600);
+}
+
+// Scroll to and highlight a specific challenge
+function scrollToChallenge(e, challengeId) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const challenge = playgroundData.challenges.find(item => item.id === challengeId);
+    if (!challenge) return;
+
+    activateTab('challenges');
+    setTimeout(() => {
+        showDetailModal('challenge', challenge);
+        highlightAndFocusCard('challenge', challengeId);
+    }, 180);
+}
+
+// Scroll to and highlight a specific template
+function scrollToTemplate(e, templateId) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const template = playgroundData.templates.find(item => item.id === templateId);
+    if (!template) return;
+
+    activateTab('templates');
+    setTimeout(() => {
+        showDetailModal('template', template);
+        highlightAndFocusCard('template', templateId);
+    }, 180);
 }

@@ -195,6 +195,7 @@
     position: sticky;
     top: 80px;
     z-index: 99;
+    backdrop-filter: blur(12px);
 }
 
 .playground-nav-tabs .container {
@@ -245,11 +246,13 @@
 .tab-btn:hover {
     background: var(--light-bg);
     color: var(--accent-color);
+    transform: translateY(-2px);
 }
 
 .tab-btn.active {
     color: var(--accent-color);
     border-bottom-color: var(--accent-color);
+    background: linear-gradient(90deg, rgba(0, 212, 255, 0.08), rgba(10, 112, 255, 0.08));
 }
 
 .tab-btn.active::after {
@@ -271,6 +274,180 @@
 
 .tab-content.active {
     display: block;
+}
+
+.challenge-card.is-highlighted,
+.template-card.is-highlighted {
+    box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.35), 0 18px 45px rgba(0, 212, 255, 0.25);
+    transform: translateY(-6px);
+}
+
+.detail-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+    pointer-events: none;
+}
+
+.detail-modal.active {
+    pointer-events: auto;
+}
+
+.detail-modal.active {
+    display: flex;
+}
+
+.detail-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(7, 24, 40, 0.7);
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+}
+
+.detail-modal-card {
+    position: relative;
+    width: min(640px, 100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 22px 70px rgba(0, 0, 0, 0.28);
+    z-index: 1;
+    pointer-events: auto;
+}
+
+.detail-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    border: none;
+    background: var(--light-bg);
+    color: var(--primary-dark);
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.detail-modal-content h3 {
+    font-size: 1.45rem;
+    margin-bottom: 8px;
+    color: var(--primary-dark);
+}
+
+.detail-modal-content .eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(0, 212, 255, 0.12);
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.detail-modal-content p {
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 14px;
+}
+
+.detail-modal-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.detail-modal-actions button,
+.detail-modal-actions a {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.practice-block {
+    background: var(--light-bg);
+    border: 1px solid rgba(0, 212, 255, 0.18);
+    border-radius: 16px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.practice-block h4 {
+    margin-bottom: 8px;
+    color: var(--primary-dark);
+}
+
+.practice-starter {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 14px;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.practice-input {
+    width: 100%;
+    min-height: 140px;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 12px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.practice-result {
+    margin-top: 12px;
+    font-weight: 600;
+}
+
+.practice-result .success {
+    color: var(--success-color);
+}
+
+.practice-result .error {
+    color: var(--danger-color);
+}
+
+.guide-list {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.guide-step {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text-light);
+}
+
+.detail-modal-actions .primary {
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    color: white;
+}
+
+.detail-modal-actions .secondary {
+    background: var(--light-bg);
+    color: var(--primary-dark);
 }
 
 @keyframes fadeIn {

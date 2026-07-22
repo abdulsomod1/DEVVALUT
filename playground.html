@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
     <title>DEV-VAULT Playground - Interactive Learning Platform</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="playground.css">
+    <link rel="stylesheet" href="styles.css?v=3">
+    <link rel="stylesheet" href="playground.css?v=3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -428,6 +430,14 @@
     </section>
 
     <!-- Footer -->
+    <div id="detailModal" class="detail-modal" aria-hidden="true">
+        <div class="detail-modal-backdrop" data-close-modal></div>
+        <div class="detail-modal-card" role="dialog" aria-modal="true" aria-labelledby="detailModalTitle">
+            <button class="detail-modal-close" id="detailModalClose" aria-label="Close">×</button>
+            <div id="detailModalContent"></div>
+        </div>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -460,6 +470,6 @@
         </div>
     </footer>
 
-    <script src="playground.js"></script>
+    <script src="playground.js?v=3"></script>
 </body>
 </html>
